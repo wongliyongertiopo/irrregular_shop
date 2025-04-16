@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Input, Form, Col, Row, message } from "antd";
+import { Button, Input, Form, message } from "antd";
 import { ShoppingCartOutlined, CreditCardOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { URL_PRODUCT, URL_TRANSACTION } from "../utils/Endpoint";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import "./Checkout.css"; // CSS dipisah
 
 const Checkout = () => {
   const [loading, setLoading] = useState(false);
@@ -59,20 +60,18 @@ const Checkout = () => {
     : 0;
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col justify-center px-4 pt-20">
-      <h1 className="text-4xl md:text-5xl font-bold tracking-widest text-center mb-10">
-        CHECK OUT
-      </h1>
+    <div className="checkout-container">
+      <h1 className="checkout-title">CHECK OUT</h1>
 
-      <div className="bg-[#dcdcdc] rounded-[30px] p-6 max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Card - Detail Produk */}
-        <div className="bg-[#dcdcdc] rounded-[30px] p-6 shadow-md">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-black">DETAIL PRODUCT</h2>
-            <ShoppingCartOutlined className="text-black text-xl" />
+      <div className="checkout-card-container">
+        {/* LEFT: Detail Produk */}
+        <div className="checkout-card">
+          <div className="checkout-header">
+            <h2>DETAIL PRODUCT</h2>
+            <ShoppingCartOutlined />
           </div>
-          <hr className="border-gray-300 mb-4" />
-          <div className="space-y-4 text-black">
+          <hr />
+          <div className="checkout-detail">
             <p>
               <strong>NAMA PRODUK:</strong> {product?.name}
             </p>
@@ -89,33 +88,30 @@ const Checkout = () => {
           </div>
         </div>
 
-        {/* Right Card - Form */}
-        <div className="bg-[#dcdcdc] rounded-[30px] p-6 shadow-md">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-black">
-              INFORMASI PEMBAYARAN
-            </h2>
-            <CreditCardOutlined className="text-black text-xl" />
+        {/* RIGHT: Form Pembayaran */}
+        <div className="checkout-card">
+          <div className="checkout-header">
+            <h2>INFORMASI PEMBAYARAN</h2>
+            <CreditCardOutlined />
           </div>
           <Form layout="vertical" form={form} onFinish={handleCheckout}>
             <Form.Item
               name="first_name"
-              label={<span className="text-black">NAMA</span>}
+              label="NAMA"
               rules={[{ required: true, message: "Nama harus di isi" }]}
             >
               <Input
                 placeholder="Masukkan nama Anda"
-                className="rounded-full"
+                className="input-rounded"
               />
             </Form.Item>
-
             <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
                 block
                 loading={loading}
-                className="rounded-full bg-black hover:bg-gray-800 text-white"
+                className="btn-submit"
               >
                 LANJUT KE PEMBAYARAN
               </Button>
