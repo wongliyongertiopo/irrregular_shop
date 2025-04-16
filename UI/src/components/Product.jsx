@@ -12,13 +12,21 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    console.log("🔄 Fetching products from:", URL_PRODUCT);
+
     axios
       .get(URL_PRODUCT)
       .then((res) => {
-        setProducts(res.data);
+        console.log("✅ Produk diterima:", res.data);
+        if (Array.isArray(res.data)) {
+          setProducts(res.data);
+        } else {
+          console.warn("⚠️ Data produk bukan array:", res.data);
+          message.error("Format data produk tidak valid.");
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.error("❌ Gagal fetch produk:", err.message);
         message.error("Gagal mengambil data produk");
       });
   }, []);
@@ -42,7 +50,10 @@ const ProductPage = () => {
                   <div className="product-image-wrapper">
                     <img
                       alt={product.name}
-                      src={product.thumbnail}
+                      src={
+                        product.thumbnail ||
+                        "https://via.placeholder.com/300x400?text=No+Image"
+                      }
                       className="product-image"
                     />
                   </div>
@@ -51,7 +62,9 @@ const ProductPage = () => {
                     description={
                       <div className="product-info">
                         <p className="product-price">Rp {product.price}</p>
-                        <p className="product-size">Size: {product.size}</p>
+                        <p className="product-size">
+                          Size: {product.size || "All Size"}
+                        </p>
                         <p className="product-description">
                           {product.description}
                         </p>

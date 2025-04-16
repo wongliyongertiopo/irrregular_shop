@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const connectDB = require("./config/db"); // Pastikan path benar
+const connectDB = require("./config/db");
 
 // Load environment variables
 dotenv.config();
@@ -12,11 +12,18 @@ connectDB();
 
 const app = express();
 
-// CORS – allow frontend to access backend
+// ✅ Update CORS config
+const allowedOrigins = ["https://irrregular-shop.vercel.app"];
+
 app.use(
   cors({
-    origin: "https://irrregular-shop.vercel.app", // Ganti dengan domain frontend kamu
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -41,5 +48,5 @@ app.use("/api/transactions", transactionRoutes);
 // Server Listen
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`✅ Server running on http://localhost:${PORT}`);
 });
