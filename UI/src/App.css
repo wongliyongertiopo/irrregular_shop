@@ -25,28 +25,22 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
 }
 
-/* ===== Overlay transparan (lebih tipis & gradient elegan) ===== */
+/* ===== Overlay transparan ===== */
 body::before {
   content: "";
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  /* Bisa pakai salah satu dari dua di bawah ini */
-
-  /* Pilihan 1 - Gradient transparan */
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.4),
     rgba(255, 255, 255, 0.1)
   );
-
-  /* Pilihan 2 - Flat transparan lembut */
-  /* background: rgba(255, 255, 255, 0.2); */
-
   z-index: -1;
 }
 
@@ -58,6 +52,7 @@ body::before {
   min-height: 100vh;
   width: 100%;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* ===== Content Area ===== */
@@ -79,11 +74,13 @@ main {
   box-sizing: border-box;
 }
 
-/* ===== Responsive Container ===== */
+/* ===== Container Layout ===== */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 /* ===== Headings ===== */
@@ -92,7 +89,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: #000; /* Ganti ke hitam agar kontras di background terang */
+  color: #000;
   font-weight: 600;
   text-align: center;
 }
@@ -151,14 +148,40 @@ footer {
   color: #1890ff;
 }
 
+/* ===== Gambar Responsif (prevent overflow) ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* ===== Responsive Fix ===== */
 @media (max-width: 768px) {
   .full-width-section {
     padding: 20px 10px;
     flex-direction: column;
+    align-items: center;
   }
 
   .App {
     padding: 0;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .home-wrapper,
+  .product-wrapper,
+  .dashboard-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .product-card {
+    width: 100%;
+    max-width: 100%;
   }
 }
