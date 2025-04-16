@@ -1,6 +1,6 @@
 .checkout-container {
   min-height: 100vh;
-  background-color: black;
+  background-color: transparent;
   color: white;
   display: flex;
   flex-direction: column;
