@@ -13,18 +13,13 @@ const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ Pastikan quantity adalah number
   const quantity = Number(location.state?.quantity) || 1;
 
   useEffect(() => {
     axios
       .get(`${URL_PRODUCT}/${id}`)
-      .then((res) => {
-        setProduct(res.data);
-      })
-      .catch((err) => {
-        console.log("err", err.response);
-      });
+      .then((res) => setProduct(res.data))
+      .catch((err) => console.log("err", err.response));
   }, [id]);
 
   const handleCheckout = async (values) => {
@@ -46,14 +41,9 @@ const Checkout = () => {
 
     try {
       setLoading(true);
-
-      // Simpan transaksi dan redirect ke Midtrans
       const res = await axios.post(URL_TRANSACTION, data);
       if (res.data.midtrans_url) {
-        // Simpan quantity ke localStorage sebelum redirect
         localStorage.setItem("checkoutQuantity", quantity);
-
-        // Redirect ke Midtrans
         window.location.href = res.data.midtrans_url;
       }
     } catch (err) {
@@ -69,83 +59,70 @@ const Checkout = () => {
     : 0;
 
   return (
-    <div className="px-4 py-8 mt-24 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center text-green-500">
-        Checkout
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center px-4 pt-20">
+      <h1 className="text-4xl md:text-5xl font-bold tracking-widest text-center mb-10">
+        CHECK OUT
       </h1>
-      <Row gutter={[16, 16]} wrap>
-        <Col xs={24} md={16}>
-          <Card
-            title="Detail Produk"
-            extra={<ShoppingCartOutlined />}
-            className="shadow-md"
-          >
-            <p className="mb-2">
-              <strong>Nama Produk: </strong>
-              <span className="font-poppins">{product?.name}</span>
-            </p>
-            <p className="mb-2">
-              <strong>Harga Produk: </strong>{" "}
-              <span className="font-bold">
-                Rp {finalPrice.toLocaleString("id-ID")}
-              </span>
-            </p>
-            {product?.discount > 0 && (
-              <p className="text-sm font-medium text-gray-500">
-                Harga Asli:{" "}
-                <span className="line-through font-bold">
-                  Rp {product.price.toLocaleString("id-ID")}
-                </span>{" "}
-                &nbsp; Diskon:{" "}
-                <span className="text-red-500 font-bold">
-                  {product.discount}%
-                </span>
-              </p>
-            )}
-            <hr className="my-5" />
+
+      <div className="bg-[#dcdcdc] rounded-[30px] p-6 max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left Card - Detail Produk */}
+        <div className="bg-[#dcdcdc] rounded-[30px] p-6 shadow-md">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold text-black">DETAIL PRODUCT</h2>
+            <ShoppingCartOutlined className="text-black text-xl" />
+          </div>
+          <hr className="border-gray-300 mb-4" />
+          <div className="space-y-4 text-black">
             <p>
-              <strong>Jumlah:</strong> {quantity}
+              <strong>NAMA PRODUK:</strong> {product?.name}
             </p>
-            <p className="text-xl font-semibold mt-2">
-              Total: Rp {(finalPrice * quantity).toLocaleString("id-ID")}
+            <p>
+              <strong>HARGA:</strong> Rp {finalPrice.toLocaleString("id-ID")}
             </p>
-          </Card>
-        </Col>
+            <p>
+              <strong>JUMLAH:</strong> {quantity}
+            </p>
+            <p>
+              <strong>TOTAL:</strong> Rp{" "}
+              {(finalPrice * quantity).toLocaleString("id-ID")}
+            </p>
+          </div>
+        </div>
 
-        <Col xs={24} md={8}>
-          <Card
-            title="Informasi Pembayaran"
-            extra={<CreditCardOutlined />}
-            className="shadow-md"
-          >
-            <Form layout="vertical" form={form} onFinish={handleCheckout}>
-              <Form.Item
-                name="first_name"
-                label="Nama Anda"
-                rules={[
-                  {
-                    required: true,
-                    message: "Nama harus di isi",
-                  },
-                ]}
+        {/* Right Card - Form */}
+        <div className="bg-[#dcdcdc] rounded-[30px] p-6 shadow-md">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold text-black">
+              INFORMASI PEMBAYARAN
+            </h2>
+            <CreditCardOutlined className="text-black text-xl" />
+          </div>
+          <Form layout="vertical" form={form} onFinish={handleCheckout}>
+            <Form.Item
+              name="first_name"
+              label={<span className="text-black">NAMA</span>}
+              rules={[{ required: true, message: "Nama harus di isi" }]}
+            >
+              <Input
+                placeholder="Masukkan nama Anda"
+                className="rounded-full"
+              />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+                loading={loading}
+                className="rounded-full bg-black hover:bg-gray-800 text-white"
               >
-                <Input placeholder="Masukkan nama Anda" />
-              </Form.Item>
-
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  block
-                  loading={loading}
-                >
-                  Lanjut ke Pembayaran
-                </Button>
-              </Form.Item>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
+                LANJUT KE PEMBAYARAN
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
