@@ -1,23 +1,38 @@
 import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Alert } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom"; // ✅ tambahkan ini
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { URL_SIGNIN } from "../utils/Endpoint";
 import "./Login.css";
 
 const Login = () => {
+  const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // ✅ inisialisasi navigator
+  const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setErrMsg("");
 
-      // ✅ arahkan ke dashboard
-      navigate("/dashboard");
-
-      // opsional: bisa juga simpan ke localStorage, dll.
-    }, 1500);
+    axios
+      .post(URL_SIGNIN, values)
+      .then((res) => {
+        if (res.data.role !== "Admin") {
+          setErrMsg("Anda tidak memiliki akses ke dalam dashboard admin");
+        } else {
+          localStorage.setItem("token", res.data.token);
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+        const msg = err?.response?.data?.message || "Login gagal";
+        setErrMsg(msg);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -27,9 +42,18 @@ const Login = () => {
           <UserOutlined />
         </div>
 
-        <h2 className="login-title">Member Login</h2>
+        <h2 className="login-title">Admin Login</h2>
 
-        <Form name="login" onFinish={onFinish} layout="vertical">
+        {errMsg && (
+          <Alert
+            message={errMsg}
+            type="error"
+            showIcon
+            style={{ marginBottom: 20 }}
+          />
+        )}
+
+        <Form form={form} name="login" onFinish={onFinish} layout="vertical">
           <Form.Item
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
@@ -39,6 +63,7 @@ const Login = () => {
               placeholder="Email"
               size="large"
               className="login-input"
+              autoComplete="off"
             />
           </Form.Item>
 
@@ -51,6 +76,7 @@ const Login = () => {
               placeholder="Password"
               size="large"
               className="login-input"
+              autoComplete="off"
             />
           </Form.Item>
 
