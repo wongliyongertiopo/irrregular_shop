@@ -7,10 +7,10 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   padding: 16px;
-  width: 100%; /* 🟢 Biar fleksibel */
-  max-width: 100%; /* 🟢 Tidak lebih dari parent */
-  box-sizing: border-box; /* ✅ Biar padding tidak nambah lebar total */
-  margin: 0 auto; /* ✅ Tengahin kartu */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .product-image-wrapper {
@@ -59,4 +59,19 @@
   .product-image-wrapper {
     height: 200px;
   }
+}
+
+/* Tambahan untuk hilangkan scroll horizontal */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Jaga semua elemen tetap dalam batas layar */
+* {
+  box-sizing: border-box;
+}
+
+img, .product-card, .product-image-wrapper {
+  max-width: 100%;
 }
