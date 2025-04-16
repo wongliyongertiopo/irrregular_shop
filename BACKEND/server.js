@@ -12,19 +12,25 @@ connectDB();
 
 const app = express();
 
+// CORS – allow frontend to access backend
+app.use(
+  cors({
+    origin: "https://irregular-shop.vercel.app", // frontend URL Vercel kamu
+    credentials: true,
+  })
+);
+
 // Middleware
-app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
 // Routes
-const userRoutes = require("./routes/UserRoutes"); // Pastikan nama file benar
+const userRoutes = require("./routes/UserRoutes");
 const productRoutes = require("./routes/ProductRoutes");
 const fileRoutes = require("./routes/FileRoutes");
 const authRoutes = require("./routes/AuthRoutes");
 const transactionRoutes = require("./routes/TransactionRoutes");
 
-// Apply route middlewares
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/files", fileRoutes);
@@ -34,5 +40,5 @@ app.use("/api/transactions", transactionRoutes);
 // Server Listen
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
