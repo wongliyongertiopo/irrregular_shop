@@ -3,11 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Layout, Button } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 
-// Komponen umum
-import Sidebar from "./components/MobileSidebar";
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MobileSidebar from "./components/MobileSidebar";
+import SidebarAdmin from "./components/SidebarAdmin";
 
 // Halaman publik
 import Home from "./components/Home";
@@ -27,7 +26,10 @@ const { Header, Content } = Layout;
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
   const toggleSidebar = () => setCollapsed(!collapsed);
+  const toggleMobileSidebar = () => setMobileSidebarOpen(!mobileSidebarOpen);
 
   return (
     <Router>
@@ -39,7 +41,12 @@ const App = () => {
           flexDirection: "column",
         }}
       >
-        <Navbar />
+        {/* Navbar + Mobile Sidebar */}
+        <Navbar onMenuClick={toggleMobileSidebar} />
+        <MobileSidebar
+          isOpen={mobileSidebarOpen}
+          onClick={toggleMobileSidebar}
+        />
 
         <main style={{ flex: 1 }}>
           <Routes>
@@ -52,12 +59,15 @@ const App = () => {
             <Route path="/signin" element={<Login />} />
             <Route path="/admin" element={<Login />} />
 
-            {/* Dashboard Admin */}
+            {/* Halaman Dashboard Admin */}
             <Route
               path="/dashboard/*"
               element={
                 <Layout style={{ minHeight: "100vh" }}>
-                  <Sidebar collapsed={collapsed} onCollapse={setCollapsed} />
+                  <SidebarAdmin
+                    collapsed={collapsed}
+                    onCollapse={setCollapsed}
+                  />
                   <Layout>
                     <Header
                       style={{
@@ -79,7 +89,6 @@ const App = () => {
                         style={{ fontSize: "16px", marginLeft: "16px" }}
                       />
                     </Header>
-
                     <Content
                       style={{
                         margin: 0,
