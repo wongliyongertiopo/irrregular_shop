@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Col, Row, Button, message } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { URL_PRODUCT } from "../utils/endpoint";
+import { URL_PRODUCT } from "../utils/Endpoint";
 import { Link } from "react-router-dom";
 import "../components/Product.css";
 
