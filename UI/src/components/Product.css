@@ -7,6 +7,10 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   padding: 16px;
+  width: 100%; /* 🟢 Biar fleksibel */
+  max-width: 100%; /* 🟢 Tidak lebih dari parent */
+  box-sizing: border-box; /* ✅ Biar padding tidak nambah lebar total */
+  margin: 0 auto; /* ✅ Tengahin kartu */
 }
 
 .product-image-wrapper {
