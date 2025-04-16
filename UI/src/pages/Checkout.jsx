@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Input, Form, Col, Row, message } from "antd";
 import { ShoppingCartOutlined, CreditCardOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { URL_PRODUCT, URL_TRANSACTION } from "../utils/endpoint";
+import { URL_PRODUCT, URL_TRANSACTION } from "../utils/Endpoint";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const Checkout = () => {
