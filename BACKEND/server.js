@@ -15,7 +15,7 @@ const app = express();
 // CORS – allow frontend to access backend
 app.use(
   cors({
-    origin: "https://irregular-shop.vercel.app", // Ganti dengan domain frontend kamu
+    origin: "https://irrregular-shop.vercel.app", // Ganti dengan domain frontend kamu
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
