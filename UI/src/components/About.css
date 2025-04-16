@@ -1,0 +1,27 @@
+.About {
+  color: rgb(255, 255, 255);
+  margin: 40px auto 80px auto;
+  font-size: 120%;
+  max-width: 900px;
+  padding: 20px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.About h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .About {
+    font-size: 100%;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  .About h2 {
+    font-size: 22px;
+  }
+}

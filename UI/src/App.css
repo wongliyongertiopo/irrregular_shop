@@ -1,0 +1,164 @@
+/* ===== Import Google Font ===== */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+/* ===== Reset & Base Font ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== Global Layout ===== */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url("/background_web.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ===== Overlay transparan (lebih tipis & gradient elegan) ===== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Bisa pakai salah satu dari dua di bawah ini */
+
+  /* Pilihan 1 - Gradient transparan */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1)
+  );
+
+  /* Pilihan 2 - Flat transparan lembut */
+  /* background: rgba(255, 255, 255, 0.2); */
+
+  z-index: -1;
+}
+
+/* ===== App Root Wrapper ===== */
+.App {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* ===== Content Area ===== */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ===== Section Layout Full Width ===== */
+.full-width-section {
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* ===== Responsive Container ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== Headings ===== */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #000; /* Ganti ke hitam agar kontras di background terang */
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===== Animasi Fade In ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Hover Card Effect ===== */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Footer Style ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  margin-top: auto;
+}
+
+/* ===== Ant Design Overrides ===== */
+.ant-layout {
+  background: transparent !important;
+}
+
+.ant-layout-header {
+  background: #fff !important;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.ant-btn {
+  border: none;
+}
+
+.ant-btn:hover {
+  color: #1890ff;
+}
+
+/* ===== Responsive Fix ===== */
+@media (max-width: 768px) {
+  .full-width-section {
+    padding: 20px 10px;
+    flex-direction: column;
+  }
+
+  .App {
+    padding: 0;
+  }
+}

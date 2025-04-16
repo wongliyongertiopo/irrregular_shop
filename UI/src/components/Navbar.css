@@ -1,0 +1,144 @@
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px; /* Tambah padding samping */
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  margin: 30px auto;
+  border-radius: 40px;
+  max-width: 1200px; /* Tengah dan tidak full */
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* Logo */
+.navbar-logo img {
+  width: 30px;
+}
+
+/* Menu Tengah */
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-item {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #000;
+  transition: 0.3s ease-in-out;
+}
+
+.navbar-link:hover {
+  text-decoration: underline;
+}
+
+/* Bagian kanan */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Icon Admin */
+.admin-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Search */
+.navbar-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Hamburger (Mobile) */
+.navbar-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .navbar-logo {
+    align-self: center;
+    margin-bottom: 10px;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    gap: 15px;
+    position: static;
+    transform: none;
+    width: 100%;
+    display: none;
+    align-items: center;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .navbar-toggle {
+    display: block;
+    align-self: flex-end;
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .navbar-search {
+    width: 100%;
+    justify-content: center;
+  }
+}
