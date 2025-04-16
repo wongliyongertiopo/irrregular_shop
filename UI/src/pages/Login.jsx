@@ -23,7 +23,7 @@ const Login = () => {
           setErrMsg("Anda tidak memiliki akses ke dalam dashboard admin");
         } else {
           localStorage.setItem("token", res.data.token);
-          navigate("/dashboard");
+          window.open("/dashboard", "_blank"); // ✅ buka dashboard di tab baru
         }
       })
       .catch((err) => {
