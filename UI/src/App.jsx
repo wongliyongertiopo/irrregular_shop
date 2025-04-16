@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import { Layout, Button } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 
@@ -23,6 +28,38 @@ import AddProduct from "./pages/dashboard/ProductCreate";
 import UpdateProduct from "./pages/dashboard/ProductUpdate";
 
 const { Header, Content } = Layout;
+
+const DashboardLayout = ({ collapsed, toggleSidebar, setCollapsed }) => (
+  <Layout style={{ minHeight: "100vh" }}>
+    <SidebarAdmin collapsed={collapsed} onCollapse={setCollapsed} />
+    <Layout>
+      <Header
+        style={{
+          padding: 0,
+          background: "#fff",
+          boxShadow: "0 2px 8px #f0f1f2",
+        }}
+      >
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={toggleSidebar}
+          style={{ fontSize: "16px", marginLeft: "16px" }}
+        />
+      </Header>
+      <Content
+        style={{
+          margin: 0,
+          padding: 0,
+          background: "transparent",
+          minHeight: "100vh",
+        }}
+      >
+        <Outlet />
+      </Content>
+    </Layout>
+  </Layout>
+);
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -59,61 +96,22 @@ const App = () => {
             <Route path="/signin" element={<Login />} />
             <Route path="/admin" element={<Login />} />
 
-            {/* Halaman Dashboard Admin */}
+            {/* Dashboard Layout */}
             <Route
-              path="/dashboard/*"
+              path="/dashboard"
               element={
-                <Layout style={{ minHeight: "100vh" }}>
-                  <SidebarAdmin
-                    collapsed={collapsed}
-                    onCollapse={setCollapsed}
-                  />
-                  <Layout>
-                    <Header
-                      style={{
-                        padding: 0,
-                        background: "#fff",
-                        boxShadow: "0 2px 8px #f0f1f2",
-                      }}
-                    >
-                      <Button
-                        type="text"
-                        icon={
-                          collapsed ? (
-                            <MenuUnfoldOutlined />
-                          ) : (
-                            <MenuFoldOutlined />
-                          )
-                        }
-                        onClick={toggleSidebar}
-                        style={{ fontSize: "16px", marginLeft: "16px" }}
-                      />
-                    </Header>
-                    <Content
-                      style={{
-                        margin: 0,
-                        padding: 0,
-                        background: "transparent",
-                        minHeight: "100vh",
-                      }}
-                    >
-                      <Routes>
-                        <Route path="" element={<Dashboard />} />
-                        <Route path="products" element={<Product />} />
-                        <Route
-                          path="products/create"
-                          element={<AddProduct />}
-                        />
-                        <Route
-                          path="products/:id"
-                          element={<UpdateProduct />}
-                        />
-                      </Routes>
-                    </Content>
-                  </Layout>
-                </Layout>
+                <DashboardLayout
+                  collapsed={collapsed}
+                  setCollapsed={setCollapsed}
+                  toggleSidebar={toggleSidebar}
+                />
               }
-            />
+            >
+              <Route index element={<Dashboard />} />
+              <Route path="products" element={<Product />} />
+              <Route path="products/create" element={<AddProduct />} />
+              <Route path="products/:id" element={<UpdateProduct />} />
+            </Route>
           </Routes>
         </main>
 
