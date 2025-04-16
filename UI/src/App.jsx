@@ -4,7 +4,7 @@ import { Layout, Button } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 
 // Komponen umum
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/MobileSidebar";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/logo.png";
 import adminIcon from "../assets/png-transparent-computer-icons-privacy-policy-admin-icon-copyright-rim-share-icon-thumbnail-removebg-preview.png";
-import MobileSidebar from "./Sidebar";
+import MobileSidebar from "./MobileSidebar";
 import { AlignJustify } from "lucide-react";
 
 export const Navbar = () => {
