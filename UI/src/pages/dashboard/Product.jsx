@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Image, Card, Spin, message } from "antd";
 import axios from "axios";
-import { URL_PRODUCT } from "../../utils/endpoint";
+import { URL_PRODUCT } from "../../utils/Endpoint";
 import { Link } from "react-router-dom";
 
 const Products = () => {

@@ -7,7 +7,7 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
-import { URL_PRODUCT } from "../utils/endpoint";
+import { URL_PRODUCT } from "../utils/Endpoint";
 import { Link } from "react-router-dom";
 
 const { Title, Paragraph } = Typography;
