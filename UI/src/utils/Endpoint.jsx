@@ -1,4 +1,4 @@
-export const BASEURL = "http://localhost:5000";
+export const BASEURL = "https://irrregularshop-production.up.railway.app";
 
 export const URL_SIGNIN = `${BASEURL}/api/auth/signin`;
 export const URL_PRODUCT = `${BASEURL}/api/products`;
